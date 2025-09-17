@@ -1,0 +1,20 @@
+{
+  "name": "Pothole App",
+  "short_name": "Pothole",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon/cpi.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon/cpi.ico",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
