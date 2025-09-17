@@ -80,11 +80,6 @@
   {#if ($snapshotsQuery.data?.length ?? 0) > 0}
     <div class="hidden md:flex w-60 flex-col gap-4 h-full pl-4">
       <div class="flex items-center gap-2 justify-between">
-        <!-- Tombol New Capture -->
-        <!-- <Button onClick={getSnap} disabled={$snapshotMutation.isPending} color="gray">
-          
-        </Button> -->
-
         <!-- Tombol Capture -->
         <button 
           on:click={getSnap}
