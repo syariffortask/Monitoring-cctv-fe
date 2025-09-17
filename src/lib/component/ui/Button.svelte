@@ -8,7 +8,7 @@
 
   const dispatch = createEventDispatcher();
 
-  $: btnClass = `bg-${color}-900 hover:bg-${color}-700 text-${textColor} font-bold py-2 px-4 rounded mb-1`;
+  $: btnClass = `bg-${color}-900 hover:bg-${color}-700 text-${textColor} font-bold py-2 px-4 rounded`;
 
   function handleClick(event) {
     onClick(event);            // jalankan fungsi yang dikirim lewat props

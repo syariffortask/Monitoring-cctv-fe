@@ -2,7 +2,7 @@
   import { fade } from 'svelte/transition';
   import NavItems from './NavItems.svelte';
   import MenuItems from './MenuItems.svelte';
-  import { Search, Cctv, LogOut, LayoutDashboardIcon, X,Home} from 'lucide-svelte';
+  import { Image, Cctv, LogOut, LayoutDashboardIcon, X,Home} from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
@@ -36,7 +36,7 @@
   };
   const menus = [
     { label: 'Dashboard', icon: Home, href: '/dashboard', roles: ['admin','user'] },
-    { label: 'Detection', icon: Search, href: '/detection', roles: ['admin','user'] },
+    { label: 'Snapshot', icon: Image, href: '/snapshot', roles: ['admin','user'] },
     { label: 'Camera', icon: Cctv, href: '/camera', roles: ['admin'] },
     { label: 'Logout', icon: LogOut, roles: ['admin','user'], onClick: () => handleLogout() },
   ];

@@ -29,8 +29,8 @@
 
     // last snapshot
     const lastSnapshot = await api.get('/snapshots/');
-    const lastSnapshotData = lastSnapshot.data;
-    stats.snapshotToday = lastSnapshotData.images.length;
+    const images = lastSnapshot.data?.images ?? [];
+    stats.snapshotToday = images.length;
   });
 
   // reactive block → setiap $cameras berubah, stats ikut update

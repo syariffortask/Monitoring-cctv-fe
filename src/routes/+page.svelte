@@ -35,20 +35,18 @@
 </script>
 
 <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-  <div class="bg-white shadow-lg rounded-md overflow-hidden flex max-w-3xl w-full mx-4">
+  <div class="bg-white shadow-lg rounded-md overflow-hidden flex max-w-3xl w-full md:h-90 mx-4">
     <!-- Form -->
     <div class="w-full md:w-1/2 p-10">
-      <h2 class="text-xl font-bold mb-1 text-gray-900 text-center">Pothole Image Detection</h2>
-      <p class="text-sm text-gray-600 mb-6 text-center">Insert your credentials to login</p>
+      <h2 class="text-xl font-bold mb-1 text-gray-900 text-center">CCTV Network Monitor</h2>
+      <p class="text-sm text-gray-600 mb-6 text-center">Please Insert your credentials</p>
       <form class="space-y-4">
         <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-            <input bind:value={username} id="username" autocomplete="off" class="mt-1 w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200 focus:outline-none" type="text" placeholder="Enter your username" />
+            <input bind:value={username} autocomplete="off" class="mt-1 w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200 focus:outline-none" type="text" placeholder="Username/email" />
         </div>
 
         <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input bind:value={password} id="password" autocomplete="current-password" class="mt-1 w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200 focus:outline-none" type="password" placeholder="********" />
+            <input bind:value={password} autocomplete="current-password" class="mt-1 w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200 focus:outline-none" type="password" placeholder="********" />
         </div>
 
         <button type="submit" onclick={handleLogin} class="w-full bg-gray-900 text-white font-semibold py-2 px-4 rounded-md hover:bg-gray-800 transition">
