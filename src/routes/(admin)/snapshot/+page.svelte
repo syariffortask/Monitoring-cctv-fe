@@ -3,10 +3,11 @@
   import api from '$lib/api';
   import MainImageViewer from '$lib/component/MainImageViewer.svelte';
   import Button from '$lib/component/ui/Button.svelte';
-  import { Download } from 'lucide-svelte';
+  import { Download, CircleArrowRight , CircleArrowLeft, Camera,Loader } from 'lucide-svelte';
 
   const qc = useQueryClient();
   let selectedImage = 0;
+  let downloading = false;
 
   // QUERY (store)
   const snapshotsQuery = createQuery({
@@ -31,6 +32,8 @@
     }
   });
 
+  
+
   // Wrapper agar bisa dipakai di <Button onClick={...}>
   const getSnap = () => $snapshotMutation.mutate();
 
@@ -45,15 +48,26 @@
   const nextImage = () => { if (selectedImage < ($snapshotsQuery.data?.length ?? 0) - 1) selectedImage++; };
 
   async function downloadSnap() {
-    const res = await api.get('/snapshots/download-all', { responseType: 'blob',timeout: 0 });
-    const url = URL.createObjectURL(new Blob([res.data]));
-    const a = document.createElement('a');
-    a.href = url; a.download = 'snapshots.zip'; document.body.appendChild(a); a.click();
-    a.remove(); URL.revokeObjectURL(url);
+    downloading = true;
+    try {
+      const res = await api.get('/snapshots/download-all', { responseType: 'blob',timeout:0 });
+      const url = window.URL.createObjectURL(res.data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'snapshots.zip';
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      downloading = false;
+    } catch (error) {
+      console.log('Error downloading image:', error);
+    } finally {
+      downloading = false;
+    }
   }
 </script>
 
-<div class="flex gap-4 w-full h-full">
+<div class="flex gap-4 w-full">
   <!-- Main Content -->
   <div class="flex-1 flex flex-col items-center">
     {#if $snapshotsQuery.isLoading}
@@ -69,9 +83,24 @@
       <MainImageViewer src={$snapshotsQuery.data[selectedImage]} />
 
       <!-- Tombol Next/Prev untuk mobile -->
-      <div class="flex justify-center w-full mt-4 gap-2 md:hidden text-xs">
-        <Button onClick={prevImage} disabled={selectedImage === 0}>Prev</Button>
-        <Button onClick={nextImage} disabled={selectedImage === ($snapshotsQuery.data?.length ?? 0) - 1}>Next</Button>
+      <div class="flex justify-between w-full mt-4 gap-2 md:hidden bg-gray-900 py-2 px-4">
+        <button on:click={getSnap} class="text-white">
+          {#if $snapshotMutation.isPending}
+            <Loader size="25" />
+          {:else}
+            <Camera size="25" />
+          {/if}
+        </button>
+        <button on:click={downloadSnap} disabled={downloading}>
+          {#if downloading}
+            <Loader size="25" color="white" />
+          {:else}
+            <Download size="25" color="white" />
+          {/if}
+        </button>
+        <button on:click={prevImage}><CircleArrowLeft size="25" color="white" /></button>
+        <h1 class="text-white font-bold">{selectedImage + 1} / {$snapshotsQuery.data.length}</h1>
+        <button on:click={nextImage} ><CircleArrowRight size="25" color="white"/></button>
       </div>
     {/if}
   </div>
@@ -109,4 +138,5 @@
       </div>
     </div>
   {/if}
+
 </div>

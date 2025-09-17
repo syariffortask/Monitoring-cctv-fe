@@ -16,7 +16,7 @@
    Swal.fire({
     icon: 'success',
     title: 'Login Success',
-    text: 'Selamat datang di Pothole Image Detection',
+    text: 'You have successfully logged in',
     timer: 2000,
     showConfirmButton: false
    }).then(() => {
