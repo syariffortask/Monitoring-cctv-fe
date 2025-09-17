@@ -45,7 +45,7 @@
   const nextImage = () => { if (selectedImage < ($snapshotsQuery.data?.length ?? 0) - 1) selectedImage++; };
 
   async function downloadSnap() {
-    const res = await api.get('/snapshots/download-all', { responseType: 'blob' });
+    const res = await api.get('/snapshots/download-all', { responseType: 'blob',timeout: 0 });
     const url = URL.createObjectURL(new Blob([res.data]));
     const a = document.createElement('a');
     a.href = url; a.download = 'snapshots.zip'; document.body.appendChild(a); a.click();
