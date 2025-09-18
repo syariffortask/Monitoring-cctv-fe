@@ -5,7 +5,7 @@
   
 </script>
 <!-- Untuk role admin -->
-<AuthGuard allowRole={['admin']} />
+<AuthGuard allowRole={['admin','user']} />
 
 <div class="flex mt-[-10px] flex-col h-full">
   <!-- OverView Card (tinggi otomatis, kontennya saja) -->

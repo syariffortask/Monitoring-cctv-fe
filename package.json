@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@tanstack/svelte-query": "^5.89.0",
 		"axios": "^1.11.0",
+		"jwt-decode": "^4.0.0",
 		"leaflet": "^1.9.4",
 		"lucide-svelte": "^0.536.0",
 		"sweetalert2": "^11.22.2"

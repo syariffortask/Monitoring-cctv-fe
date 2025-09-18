@@ -1,36 +1,40 @@
 import api from "$lib/api";
+import { jwtDecode } from "jwt-decode";
 
 export async function login(username, password) {
-  try {
-    const body = new URLSearchParams();
-    body.set("username", username);
-    body.set("password", password);
+  const url = "/auth/login";
+  const body = new URLSearchParams({ username, password });
 
-    const response = await api.post("/auth/login", body, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      skipInterceptor: true // biar interceptor ngga maksa token
+  try {
+    const response = await api.post(url, body, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      skipInterceptor: true
     });
 
-    // axios simpan di response.data
     const { access_token, token_type } = response.data;
 
-    // simpan token ke localStorage
     localStorage.setItem("token", access_token);
 
     return { access_token, token_type };
   } catch (error) {
-    let message = "Login Failed";
-
-    if (error.response) {
-      message = error.response.data?.detail || error.response.statusText;
-    } else if (error.request) {
-      message = "No response from server";
-    } else {
-      message = error.message;
-    }
+    const message = error.response?.data?.detail || error.response?.statusText || error.message;
 
     throw new Error(message);
   }
 }
+
+
+export function getRoleFromToken() {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    const decoded = jwtDecode(token);
+    return decoded.role || null;
+  } catch (e) {
+    console.error("Invalid token", e);
+    return null;
+  }
+}
+
+

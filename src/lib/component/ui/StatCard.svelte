@@ -11,15 +11,15 @@
 <div class="flex-1 relative rounded-2xl shadow-lg bg-white p-3 md:p-6 bg-gradient-to-r from-gray-100 to-gray-250">
   <!-- Konten utama -->
   <div>
-    <h2 class="text-md font-medium md:mb-2">{title}</h2>
-    <div class={`text-2xl md:text-3xl font-bold ${color}`}>{value}</div>
+    <h2 class=" text-xs md:text-md font-medium md:mb-2">{title}</h2>
+    <div class={`text-sm md:text-2xl md:text-3xl font-bold ${color}`}>{value}</div>
     {#if subtitle}
       <p class="text-xs md:text-sm text-gray-500">{subtitle}</p>
     {/if}
   </div>
 
   <!-- Icon di kanan tengah -->
-  <div class={`absolute right-4 top-1/2 -translate-y-1/2 text-white rounded-full p-3 ${bgIcon}`}>
-    <svelte:component this={icon} class="w-4 h-4 md:w-8 md:h-8" />
+  <div class={`absolute right-2 top-1/2 -translate-y-1/2 text-white rounded-full p-3 ${bgIcon}`}>
+    <svelte:component this={icon} class="w-3 h-3 md:w-8 md:h-8" />
   </div>
 </div>

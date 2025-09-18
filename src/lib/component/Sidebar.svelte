@@ -1,15 +1,18 @@
 <script>
-  import { fade } from 'svelte/transition';
-  import NavItems from './NavItems.svelte';
-  import MenuItems from './MenuItems.svelte';
   import { Image, Cctv, LogOut, LayoutDashboardIcon, X,Home} from 'lucide-svelte';
   import { createEventDispatcher } from 'svelte';
-  import { page } from '$app/stores';
+  import MenuItems from './MenuItems.svelte';
+  import { fade } from 'svelte/transition';
+  import NavItems from './NavItems.svelte';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import Swal from 'sweetalert2';
+  import { getRoleFromToken } from '$lib/api/auth';
+
   export let minimized = false; // desktop
   export let mobileOpen = false; // mobile
-  export let role = 'admin';
+  const role = getRoleFromToken();
+  
   const dispatch = createEventDispatcher();
 
   const closeMobile = () => {
@@ -55,7 +58,7 @@
   </div>
   <nav class="space-y-1 text-white font-medium">
     {#each menus as menu (menu.href)}
-      {#if menu.roles.includes(role)}
+      {#if role && menu.roles.includes(role)}
         <NavItems {...menu} {minimized} />
       {/if}
     {/each}
@@ -67,12 +70,9 @@
   <div class="md:hidden w-full fixed inset-0 bg-black/50 z-[99]">
   
     <div class="fixed bottom-0 w-full p-8 bg-gray-900 text-white rounded-t-3xl " transition:fade={{ duration: 100 }}>
-      <!-- <button class="absolute bottom-20 right-50" on:click={closeMobile}>
-        <X size={25} color="white" />
-      </button> -->
       <ul class="flex space-x-2 justify-between list-none">
         {#each menus as menu}
-          {#if menu.roles.includes(role)}
+          {#if role && menu.roles.includes(role)}
             <MenuItems {menu} {closeMobile} />
           {/if}
         {/each}

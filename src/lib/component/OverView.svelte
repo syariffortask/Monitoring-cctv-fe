@@ -13,9 +13,6 @@
     activeCamera: 0,
     inactiveCamera: 0,
     snapshotToday: 0,
-    lastDetected: 0,
-    lastDetectedDate: '',
-    cameraWithPothole: 0
   }
 
   onMount(async () => {
@@ -24,8 +21,6 @@
     // last detection
     const lastDetection = await api.get('/results/latest');
     const lastDetectionData = lastDetection.data;
-    stats.lastDetected = lastDetectionData?.detected_images?.length ?? 0;
-    stats.lastDetectedDate = lastDetectionData.date;
 
     // last snapshot
     const lastSnapshot = await api.get('/snapshots/');
@@ -39,7 +34,7 @@
   $: stats.inactiveCamera = stats.totalCamera - stats.activeCamera;
 </script>
 
-<div class="flex flex-col md:flex-row gap-4">
+<div class="flex md:flex-col md:flex-row gap-4">
   <StatCard
     title="Jumlah CCTV"
     value={stats.totalCamera}
@@ -54,14 +49,5 @@
     subtitle={`Dari ${stats.totalCamera} CCTV`}
     icon={Camera}
     bgIcon="bg-blue-500"
-  />
-
-  <StatCard
-    title="Deteksi Terakhir"
-    value={stats.lastDetected}
-    subtitle={`${stats.lastDetectedDate}, Dari ${stats.totalCamera} CCTV`}
-    icon={AlertTriangle} 
-    color="text-red-600"
-    bgIcon="bg-red-500"
   />
 </div>
