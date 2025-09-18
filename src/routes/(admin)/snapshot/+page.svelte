@@ -107,7 +107,7 @@
 
   <!-- Mini Sidebar Thumbnail di Desktop -->
   {#if ($snapshotsQuery.data?.length ?? 0) > 0}
-    <div class="hidden md:flex w-60 flex-col gap-4 h-full pl-4">
+    <div class="hidden md:flex w-60 flex-col gap-4 h-full overflow-y-auto max-h-[calc(100vh-170px)] pl-4">
       <div class="flex items-center gap-2 justify-between">
         <!-- Tombol Capture -->
         <button 
@@ -117,9 +117,13 @@
         </button>
         <!-- Tombol Download -->
         <button 
-          on:click={downloadSnap}
+          on:click={downloadSnap} disabled={downloading}
           class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
-          <Download size="25" />
+          {#if downloading}
+            <Loader size="25" color="white" />
+          {:else}
+            <Download size="25" color="white" />
+          {/if}
         </button>
       </div>
 
