@@ -3,6 +3,15 @@
   import L from "leaflet";
   import "leaflet/dist/leaflet.css";
   import { cameras, initCameras } from "$lib/stores/camera";
+  import Dialog from "./Dialog.svelte";
+
+  let isOpen = false;
+  let modalTitle = '';
+
+  let value = {
+    title: 'Dummy',
+    src: 'https://picsum.photos/id/237/1280/720'
+  }
 
   export let center = [0, 0];
   export let zoom = 2;
@@ -23,6 +32,16 @@
     iconAnchor: [12, 36],
   });
 
+  function openModal(title,src) {
+    modalTitle = title;
+    value = {
+      title: title,
+      src: src
+    }
+    console.log(value);
+    isOpen = true;
+  }
+
   onMount(() => {
     initCameras();
     map = L.map(mapEl, { center, zoom });
@@ -39,8 +58,10 @@
             icon: cam.status === "online" ? onlineIcon : offlineIcon
           }).addTo(map);
 
-          marker.bindTooltip(cam.name, { direction: "top", offset: [0, -40] });
-          // marker.bindPopup('Status: ' + cam.status);
+          // marker.bindTooltip(cam.name, { direction: "top", offset: [0, -40] });
+          // marker.bindPopup( cam.name);
+          marker.on("click", () => openModal(cam.name,cam.stream_url));
+          
 
           markers[cam.id] = marker;
         } else {
@@ -55,6 +76,8 @@
 
 
 <div bind:this={mapEl} class="w-full h-full rounded-xl"></div>
+
+<Dialog bind:isOpen bind:modalTitle onClose={() => isOpen = false } bind:value/>
 
 <style>
   :global(.leaflet-container) {
