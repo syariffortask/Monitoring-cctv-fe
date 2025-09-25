@@ -38,7 +38,7 @@
       title: title,
       src: src
     }
-    console.log(value);
+    // console.log(value);
     isOpen = true;
   }
 
