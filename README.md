@@ -22,10 +22,13 @@ npm run build
 ```
 
 ## Building image docker
+pastikan sudah ada docker di server/pc untuk serving aplikasi lebih mudah
+```
+docker build -t cctv-monitor .
+```
 
-```
-docker run build -t fe-monitoring-cctv
-```
+## run image
+buka docker desktop atau docker cli saja untuk jalankan image
 
 
 
