@@ -28,7 +28,12 @@ docker build -t cctv-monitor .
 ```
 
 ## run image
-buka docker desktop atau docker cli saja untuk jalankan image
+buka docker desktop atau docker cli saja untuk jalankan image, pastikan image sudah ada
+```
+docker image ls
+docker run -d --name cctv_monitor -p 88:80 cctv-monitor
+```
+aplikasi jalan pada port 88
 
 
 
